@@ -1,29 +1,33 @@
-# =============================================================================
-# Project: Repeated Measures Data Simulation
-# Script:  repeated_measures_data_simulation.R
+# ==============================================================================
+# Project: Simulating Repeated Measures Data with Gender-Based Variability
+# Script:  simulate_repeated_measures.R
 # Author:  Simon Greaves
-# Date:    17AUG2024
+# Date:    17-AUG-2024
 # 
 # Description:
-# This script will create a data.frame object containing time-varying repeated
-# measurements within subjects. This is an example data set meant to be
-# used as an example of how data simulation can be used for model validation
-# and more.
+# This script generates a simulated dataset of repeated measurements taken
+# from individual subjects over time, incorporating gender-based differences 
+# in baseline values and slopes. The simulation includes time-varying effects,
+# probabilistic no-shows, and random intervals between measurement appointments.
+# This dataset can be used to validate statistical models and explore data
+# analysis techniques.
 #
 # Dependencies:
 # - R version 4.1.3
-# - Packages: dplyr
+# - Packages: dplyr, ggplot2
 #
 # Inputs:
 # - None
 #
 # Outputs:
-# - 
+# - A data set containing the repeated measurements by id in a LONG format.
+# - A ggplot visualizing the relationship between time and measurement values
+#   stratified by gender.
 #
 # Notes:
-# [Any additional notes or assumptions]
-#
-# =============================================================================
+# - Gender is modeled as a binary variable with equal probability.
+# 
+# ==============================================================================
 
 pkgs <- c('dplyr', 'ggplot2')
 inst <- lapply(pkgs, library, character.only = TRUE)
