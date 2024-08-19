@@ -88,4 +88,4 @@ long %>%
     y = "Value",
     color = "Gender"
   ) +
-  theme_minimal()
+  theme(plot.title = element_text(hjust = 0.5))
