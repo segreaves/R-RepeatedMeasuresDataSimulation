@@ -72,7 +72,6 @@ long <- long %>%
     day = cumsum(days),
     n_appointment = row_number(),
     n_measurements = cumsum(successful_measurement),
-    tot_donations = sum(successful_measurement),
     value = if_else(successful_measurement == 1,
                  baseline + gender * male_baseline_offset +
                    slope * day + gender * male_slope_offset * day +
