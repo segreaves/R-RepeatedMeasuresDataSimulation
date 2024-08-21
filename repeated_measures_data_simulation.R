@@ -64,14 +64,15 @@ max_days <- 7
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ]
 long <- long %>%
   mutate(
-    successful_measurement = rbinom(n = n(), size = 1, prob = no_show_prob),
     days = runif(n = n(), min = 0, max = max_days)) %>%
   group_by(id) %>%
   mutate(
     sex = c('F', 'M')[gender + 1],
     day = cumsum(days),
     n_appointment = row_number(),
+    successful_measurement = rbinom(n = n(), size = 1, prob = no_show_prob),
     n_measurements = cumsum(successful_measurement),
+    succesfull_measurements = sum(successful_measurement),
     value = if_else(successful_measurement == 1,
                  baseline + gender * male_baseline_offset +
                    slope * day + gender * male_slope_offset * day +
