@@ -37,20 +37,11 @@ set.seed(42)
 # number of individual id instances
 n_instances <- 10000
 
-# measurement frequency
+# number of measurements
 lambda <- 0.75
 measurements <- ceiling(rexp(n_instances, lambda))
-
 # model gender
 prob_male <- 0.5
-
-# set up individual profiles
-wide <- data.frame(id = 1:n_instances,# unique id
-                          total_measurements = measurements,
-                          gender = rbinom(n_instances,
-                                          size = 1,
-                                          prob = prob_male))
-
 # set up measurement baseline and slope varying by gender
 baseline <- 100
 male_baseline_offset <- 10
@@ -60,6 +51,14 @@ male_slope_offset <- -0.1
 no_show_prob <- 0.9
 # we'll simulate a maximum of 7 days between measurement appointments
 max_days <- 7
+
+# set up individual profiles
+wide <- data.frame(id = 1:n_instances,# unique id
+                          total_measurements = measurements,
+                          gender = rbinom(n_instances,
+                                          size = 1,
+                                          prob = prob_male))
+
 # create measurements data set with as many rows as measurements
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ]
 long <- long %>%
