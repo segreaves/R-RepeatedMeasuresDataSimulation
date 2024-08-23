@@ -39,7 +39,6 @@ n_instances <- 10000
 
 # number of measurements
 lambda <- 0.75
-measurements <- ceiling(rexp(n_instances, lambda))
 # model gender
 prob_male <- 0.5
 # set up measurement baseline and slope varying by gender
@@ -47,21 +46,20 @@ baseline <- 100
 male_baseline_offset <- 10
 slope <- -0.25
 male_slope_offset <- -0.1
-# we'll also simulate a 10% probability of no-shows
+# simulate a 10% change of no-shows
 no_show_prob <- 0.9
-# we'll simulate a maximum of 7 days between measurement appointments
+# maximum of 7 days between measurement appointments
 max_days <- 7
 
 # set up individual profiles
-wide <- data.frame(id = 1:n_instances,# unique id
-                          total_measurements = measurements,
-                          gender = rbinom(n_instances,
-                                          size = 1,
-                                          prob = prob_male))
+wide <- data.frame(id = 1:n_instances,
+                   total_measurements = ceiling(rexp(n_instances, lambda)),
+                   gender = rbinom(n_instances,
+                                   size = 1,
+                                   prob = prob_male))
 
 # create measurements data set with as many rows as measurements
-long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ]
-long <- long %>%
+long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
   mutate(
     days = runif(n = n(), min = 0, max = max_days)) %>%
   group_by(id) %>%
@@ -71,7 +69,7 @@ long <- long %>%
     n_appointment = row_number(),
     successful_measurement = rbinom(n = n(), size = 1, prob = no_show_prob),
     n_measurements = cumsum(successful_measurement),
-    succesfull_measurements = sum(successful_measurement),
+    n_succesfull_measurements = sum(successful_measurement),
     value = if_else(successful_measurement == 1,
                  baseline + gender * male_baseline_offset +
                    slope * day + gender * male_slope_offset * day +
