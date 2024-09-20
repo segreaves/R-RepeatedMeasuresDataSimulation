@@ -57,6 +57,7 @@ wide <- data.frame(id = 1:n_instances,
                    gender = rbinom(n_instances,
                                    size = 1,
                                    prob = prob_male))
+head(wide, 7)
 
 # create measurements data set with as many rows as measurements
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
@@ -76,6 +77,7 @@ long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
                    rnorm(n = n(), mean = 0, sd = 1),
                  NA)
   )
+head(data.frame(long), 8)
 
 # plot the data
 long %>%
