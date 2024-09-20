@@ -47,7 +47,7 @@ male_baseline_offset <- 10
 slope <- -0.25
 male_slope_offset <- -0.1
 # simulate a 10% change of no-shows
-no_show_prob <- 0.9
+measurement_prob <- 0.9
 # maximum of 7 days between measurement appointments
 max_days <- 7
 
@@ -67,7 +67,7 @@ long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
     sex = c('F', 'M')[gender + 1],
     day = cumsum(days),
     n_appointment = row_number(),
-    successful_measurement = rbinom(n = n(), size = 1, prob = no_show_prob),
+    successful_measurement = rbinom(n = n(), size = 1, prob = measurement_prob),
     n_measurements = cumsum(successful_measurement),
     n_succesfull_measurements = sum(successful_measurement),
     value = if_else(successful_measurement == 1,
