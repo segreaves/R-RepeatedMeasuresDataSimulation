@@ -62,15 +62,23 @@ head(wide, 7)
 # create measurements data set with as many rows as measurements
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
   mutate(
+    # Days between measurements
     days = runif(n = n(), min = 0, max = max_days)) %>%
   group_by(id) %>%
   mutate(
+    # Gender
     sex = c('F', 'M')[gender + 1],
+    # Day of measurement
     day = cumsum(days),
+    # Number of appointment
     n_appointment = row_number(),
+    # Was measurement successful or is it NA?
     successful_measurement = rbinom(n = n(), size = 1, prob = measurement_prob),
+    # Successful measurements up to this point
     n_measurements = cumsum(successful_measurement),
+    # Total successful measurements
     n_succesfull_measurements = sum(successful_measurement),
+    # Measurement value
     value = if_else(successful_measurement == 1,
                  baseline + gender * male_baseline_offset +
                    slope * day + gender * male_slope_offset * day +
