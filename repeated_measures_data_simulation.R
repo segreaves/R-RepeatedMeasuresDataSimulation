@@ -56,8 +56,9 @@ wide <- data.frame(id = 1:n_instances,
                    total_measurements = ceiling(rexp(n_instances, lambda)),
                    gender = rbinom(n_instances,
                                    size = 1,
-                                   prob = prob_male))
-head(wide, 7)
+                                   prob = prob_male),
+                   id_offset = rnorm(mean = 0, sd = 1, n = n_instances))
+head(wide, 4)
 
 # create measurements data set with as many rows as measurements
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
@@ -80,7 +81,7 @@ long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
     n_succesfull_measurements = sum(successful_measurement),
     # Measurement value
     value = if_else(successful_measurement == 1,
-                 baseline + gender * male_baseline_offset +
+                 baseline + id_offset + gender * male_baseline_offset +
                    slope * day + gender * male_slope_offset * day +
                    rnorm(n = n(), mean = 0, sd = 1),
                  NA)
