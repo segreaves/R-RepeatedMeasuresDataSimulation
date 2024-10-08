@@ -1,6 +1,6 @@
 # ==============================================================================
 # Project: Simulating Repeated Measures Data with Gender-Based Variability
-# Script:  simulate_repeated_measures.R
+# Script:  repeated_measures_data_simulation.R
 # Author:  Simon Greaves
 # Date:    17-AUG-2024
 # 
@@ -8,7 +8,8 @@
 # This script generates a simulated dataset of repeated measurements taken
 # from individual subjects over time, incorporating gender-based differences 
 # in baseline values and slopes. The simulation includes time-varying effects,
-# probabilistic no-shows, and random intervals between measurement appointments.
+# probabilistic no-shows (failed measurements that yield NA values),
+# and random intervals between measurement appointments.
 # This dataset can be used to validate statistical models and explore data
 # analysis techniques.
 #
