@@ -5,3 +5,5 @@ An example of how to use R to simulate repeated measurements data.
 
 This is the R project discussed in the article:
 https://medium.com/@simongreaves/simulating-auto-correlated-data-in-r-a-step-by-step-guide-1c09f48a8edb
+
+A step by step process for simulating time varying auto-correlated datasets. Useful for model validation and a good exercise for data manipulation in R.
