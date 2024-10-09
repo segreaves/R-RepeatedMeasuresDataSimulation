@@ -65,11 +65,11 @@ head(wide, 4)
 long <- wide[rep(seq_len(nrow(wide)), wide$total_measurements), ] %>%
   mutate(
     # Days between measurements
-    days = runif(n = n(), min = 0, max = max_days)) %>%
+    days = runif(n = n(), min = 0, max = max_days),
+    # Gender
+    sex = c('F', 'M')[gender + 1]) %>%
   group_by(id) %>%
   mutate(
-    # Gender
-    sex = c('F', 'M')[gender + 1],
     # Day of measurement
     day = cumsum(days),
     # Number of appointment
